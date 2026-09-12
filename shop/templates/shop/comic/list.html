@@ -50,10 +50,17 @@
                         <h5 class="card-title text-truncate" style="font-size: 1.5rem;">
                             <a href="{{ comic.get_absolute_url }}" class="text-decoration-none text-dark">{{ comic.title }}</a>
                         </h5>
-                        <p class="card-text text-muted mb-3" style="font-size: 0.9rem;"><strong>Autore:</strong> {{ comic.author }}</p>
+                        <p class="card-text text-muted mb-2" style="font-size: 0.9rem;"><strong>Autore:</strong> {{ comic.author }}</p>
+                        <p class="card-text mb-3">
+                            <span class="badge bg-secondary border border-dark rounded-0">{{ comic.get_condition_display }}</span>
+                        </p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="price-tag fs-4">€ {{ comic.price }}</span>
-                            <a href="{{ comic.get_absolute_url }}" class="btn btn-comic btn-sm px-3 py-1" style="font-size: 1.2rem;">Vedi</a>
+                            {% if comic.is_sold %}
+                                <span class="badge bg-dark p-2 border border-2 border-white" style="font-family: 'Bangers'; font-size: 1.2rem;">VENDUTO</span>
+                            {% else %}
+                                <a href="{{ comic.get_absolute_url }}" class="btn btn-comic btn-sm px-3 py-1" style="font-size: 1.2rem;">Vedi</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

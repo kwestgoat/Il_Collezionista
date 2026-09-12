@@ -16,43 +16,66 @@
 
 <div class="row comic-panel p-4 bg-white mx-0">
     <div class="col-md-5 mb-4 mb-md-0 text-center">
-        {% if comic.image %}
-            <img src="{{ comic.image.url }}" class="img-fluid border border-dark border-4 shadow-sm" alt="{{ comic.title }}" style="max-height: 600px;">
-        {% else %}
-            <div class="bg-light text-dark d-flex align-items-center justify-content-center border border-dark border-4" style="height: 500px;">
-                <span style="font-family: 'Bangers'; font-size: 3rem;">POW! Niente Immagine</span>
-            </div>
+        <!-- Main Image -->
+        <div class="mb-3">
+            {% if comic.image %}
+                <img src="{{ comic.image.url }}" class="img-fluid border border-dark border-4 shadow-sm" alt="{{ comic.title }}" style="max-height: 600px;">
+            {% else %}
+                <div class="bg-light text-dark d-flex align-items-center justify-content-center border border-dark border-4" style="height: 500px;">
+                    <span style="font-family: 'Bangers'; font-size: 3rem;">POW! Niente Immagine</span>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Gallery / Additional Images -->
+        {% if comic.additional_images.all %}
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+            {% for extra_img in comic.additional_images.all %}
+                <div class="border border-dark border-2 p-1" style="width: 100px; height: 100px; cursor: pointer;">
+                    <a href="{{ extra_img.image.url }}" target="_blank">
+                        <img src="{{ extra_img.image.url }}" class="img-fluid h-100 w-100" style="object-fit: cover;" alt="{{ extra_img.description }}" title="{{ extra_img.description }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <p class="text-muted mt-2"><small>Clicca sulle foto per ingrandirle</small></p>
         {% endif %}
     </div>
     
     <div class="col-md-7 d-flex flex-column justify-content-center px-md-5">
         <h1 class="display-3 mb-3" style="text-shadow: 2px 2px 0 #ccc;">{{ comic.title }}</h1>
         
-        <div class="mb-4">
+        <div class="mb-3">
             <span class="badge bg-dark text-white p-2 fs-6 rounded-0 border border-2 border-white shadow-sm" style="font-family: 'Bangers'; letter-spacing: 1px;">
                 {{ comic.category.name }}
+            </span>
+            <span class="badge bg-warning text-dark p-2 fs-6 rounded-0 border border-2 border-dark shadow-sm ms-2" style="font-family: 'Bangers'; letter-spacing: 1px;">
+                Stato: {{ comic.get_condition_display }}
             </span>
         </div>
         
         <p class="fs-5 mb-4 pb-4 border-bottom border-dark border-2"><strong>Scritto e disegnato da:</strong> {{ comic.author }}</p>
         
-        <div class="mb-5">
+        <div class="mb-4">
             <span class="price-tag fs-1 px-4 py-2">€ {{ comic.price }}</span>
         </div>
         
-        <div class="comic-panel p-3 bg-light mb-5 shadow-none" style="border-width: 2px;">
-            <h4 class="mb-2">Trama:</h4>
+        <div class="comic-panel p-3 bg-light mb-4 shadow-none" style="border-width: 2px;">
+            <h4 class="mb-2">Dettagli / Trama:</h4>
             <p class="mb-0 lh-lg" style="font-size: 1.1rem;">
-                {{ comic.description|linebreaksbr|default:"Nessuna descrizione disponibile per questo numero. Sarà un mistero!" }}
+                {{ comic.description|linebreaksbr|default:"Nessuna descrizione disponibile per questo numero." }}
             </p>
         </div>
         
         <div class="mt-auto">
-            {% if comic.stock > 0 %}
-                <button class="btn btn-comic w-100 py-3 text-uppercase" style="font-size: 2rem;">Acquista Ora!</button>
-                <p class="text-center fw-bold mt-3 text-success">Disponibilità immediata</p>
+            {% if not comic.is_sold %}
+                <button class="btn btn-comic w-100 py-3 text-uppercase mb-3" style="font-size: 2rem;">Acquista Ora!</button>
+                <a href="https://wa.me/390000000000?text=Ciao!%20Vorrei%20avere%20maggiori%20informazioni%20o%20fare%20un'offerta%20per%20il%20fumetto:%20{{ comic.title }}" target="_blank" class="btn btn-success w-100 py-2 border border-dark border-3 rounded-0 fw-bold fs-5 shadow-sm">
+                    💬 Richiedi Info / Fai Offerta (WhatsApp)
+                </a>
             {% else %}
-                <button class="btn btn-dark w-100 py-3 text-uppercase border border-4 border-dark rounded-0" disabled style="font-family: 'Bangers'; font-size: 2rem; color: #ccc;">Esaurito</button>
+                <button class="btn btn-dark w-100 py-3 text-uppercase border border-4 border-dark rounded-0 mb-3" disabled style="font-family: 'Bangers'; font-size: 2rem; color: #ccc;">VENDUTO</button>
+                <p class="text-center text-muted fw-bold">Questo pezzo unico è già stato acquistato.</p>
             {% endif %}
         </div>
     </div>
