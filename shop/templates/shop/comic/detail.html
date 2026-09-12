@@ -70,9 +70,17 @@
         <div class="mt-auto">
             {% if not comic.is_sold %}
                 <button class="btn btn-comic w-100 py-3 text-uppercase mb-3" style="font-size: 2rem;">Acquista Ora!</button>
-                <a href="https://wa.me/390000000000?text=Ciao!%20Vorrei%20avere%20maggiori%20informazioni%20o%20fare%20un'offerta%20per%20il%20fumetto:%20{{ comic.title }}" target="_blank" class="btn btn-success w-100 py-2 border border-dark border-3 rounded-0 fw-bold fs-5 shadow-sm">
-                    💬 Richiedi Info / Fai Offerta (WhatsApp)
-                </a>
+                
+                <h5 class="mt-2 mb-3 font-weight-bold">Fai una proposta o chiedi foto:</h5>
+                <div class="d-grid gap-2">
+                    <a href="mailto:tuamail@esempio.com?subject=Richiesta info o offerta: {{ comic.title }}&body=Ciao!%20Vorrei%20avere%20maggiori%20informazioni%20su%20questo%20fumetto:%20{{ comic.title }}" class="btn btn-primary py-2 border border-dark border-3 rounded-0 fw-bold fs-5 shadow-sm">
+                        ✉️ Scrivici via Email
+                    </a>
+                    
+                    <a href="https://wa.me/390000000000?text=Ciao!%20Vorrei%20avere%20maggiori%20informazioni%20o%20fare%20un'offerta%20per%20il%20fumetto:%20{{ comic.title }}" target="_blank" class="btn btn-success py-2 border border-dark border-3 rounded-0 fw-bold fs-5 shadow-sm">
+                        💬 Scrivici su WhatsApp
+                    </a>
+                </div>
             {% else %}
                 <button class="btn btn-dark w-100 py-3 text-uppercase border border-4 border-dark rounded-0 mb-3" disabled style="font-family: 'Bangers'; font-size: 2rem; color: #ccc;">VENDUTO</button>
                 <p class="text-center text-muted fw-bold">Questo pezzo unico è già stato acquistato.</p>
