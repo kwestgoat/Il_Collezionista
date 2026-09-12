@@ -1,0 +1,28 @@
+{% extends "shop/base.html" %}
+
+{% block title %}About Us - Il Collezionista{% endblock %}
+
+{% block content %}
+<div class="comic-panel p-5 bg-white">
+    <h1 class="display-3 text-center mb-4" style="text-shadow: 2px 2px 0 #fff, 4px 4px 0 #000;">Chi Siamo</h1>
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="comic-panel p-3 text-center" style="background-color: #22a7f0;">
+                <h2 class="text-white mb-0" style="text-shadow: 2px 2px 0 #000;">La Nostra Storia</h2>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="fs-5 lh-lg">
+                Benvenuto nel <strong>Collezionista</strong>, il rifugio definitivo per ogni amante dei fumetti! 
+                Siamo nati dalla passione sfrenata per le storie disegnate, dai grandi classici dei supereroi fino 
+                alle graphic novel indipendenti e ai manga d'autore. 
+            </p>
+            <p class="fs-5 lh-lg">
+                Il nostro obiettivo è farti trovare i pezzi più rari, le ultime uscite e offrirti un servizio impeccabile.
+                Sei pronto a tuffarti in una nuova avventura? <strong>KABOOM!</strong>
+            </p>
+            <a href="{% url 'shop:comic_list' %}" class="btn btn-comic mt-3">Vai allo Store!</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

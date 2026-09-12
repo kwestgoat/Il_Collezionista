@@ -1,0 +1,60 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ comic.title }} - Il Collezionista
+{% endblock %}
+
+{% block content %}
+<div class="row mt-2">
+    <div class="col-12 mb-3">
+        <a href="{% url 'shop:comic_list' %}" class="text-dark fw-bold text-decoration-none">
+            &laquo; Torna al catalogo
+        </a>
+    </div>
+</div>
+
+<div class="row comic-panel p-4 bg-white mx-0">
+    <div class="col-md-5 mb-4 mb-md-0 text-center">
+        {% if comic.image %}
+            <img src="{{ comic.image.url }}" class="img-fluid border border-dark border-4 shadow-sm" alt="{{ comic.title }}" style="max-height: 600px;">
+        {% else %}
+            <div class="bg-light text-dark d-flex align-items-center justify-content-center border border-dark border-4" style="height: 500px;">
+                <span style="font-family: 'Bangers'; font-size: 3rem;">POW! Niente Immagine</span>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-7 d-flex flex-column justify-content-center px-md-5">
+        <h1 class="display-3 mb-3" style="text-shadow: 2px 2px 0 #ccc;">{{ comic.title }}</h1>
+        
+        <div class="mb-4">
+            <span class="badge bg-dark text-white p-2 fs-6 rounded-0 border border-2 border-white shadow-sm" style="font-family: 'Bangers'; letter-spacing: 1px;">
+                {{ comic.category.name }}
+            </span>
+        </div>
+        
+        <p class="fs-5 mb-4 pb-4 border-bottom border-dark border-2"><strong>Scritto e disegnato da:</strong> {{ comic.author }}</p>
+        
+        <div class="mb-5">
+            <span class="price-tag fs-1 px-4 py-2">€ {{ comic.price }}</span>
+        </div>
+        
+        <div class="comic-panel p-3 bg-light mb-5 shadow-none" style="border-width: 2px;">
+            <h4 class="mb-2">Trama:</h4>
+            <p class="mb-0 lh-lg" style="font-size: 1.1rem;">
+                {{ comic.description|linebreaksbr|default:"Nessuna descrizione disponibile per questo numero. Sarà un mistero!" }}
+            </p>
+        </div>
+        
+        <div class="mt-auto">
+            {% if comic.stock > 0 %}
+                <button class="btn btn-comic w-100 py-3 text-uppercase" style="font-size: 2rem;">Acquista Ora!</button>
+                <p class="text-center fw-bold mt-3 text-success">Disponibilità immediata</p>
+            {% else %}
+                <button class="btn btn-dark w-100 py-3 text-uppercase border border-4 border-dark rounded-0" disabled style="font-family: 'Bangers'; font-size: 2rem; color: #ccc;">Esaurito</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

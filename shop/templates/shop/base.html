@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Il Collezionista{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            padding-top: 76px; 
+            background-color: #f4f1ea; /* carta vintage */
+            font-family: 'Open Sans', sans-serif;
+            color: #222;
+            background-image: radial-gradient(#d3cdc0 15%, transparent 16%);
+            background-size: 8px 8px; /* effetto halftone leggero */
+        }
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+        }
+        .navbar {
+            background-color: #e62429 !important; /* Rosso Marvel */
+            border-bottom: 4px solid #000;
+        }
+        .navbar-brand { 
+            font-size: 2.5rem; 
+            color: #fff !important;
+            text-shadow: 2px 2px 0 #000;
+        }
+        .comic-panel {
+            background-color: #fff;
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0 #000;
+            border-radius: 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .comic-panel:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 #000;
+        }
+        .comic-card { 
+            height: 100%; 
+        }
+        .comic-cover { 
+            height: 350px; 
+            object-fit: cover; 
+            border-bottom: 4px solid #000;
+        }
+        .btn-comic {
+            background-color: #f7ca18; /* Giallo acceso */
+            color: #000;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            border-radius: 0;
+            transition: all 0.1s;
+        }
+        .btn-comic:hover {
+            background-color: #f9d95c;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #000;
+        }
+        .btn-comic:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0 0 0 #000;
+        }
+        .list-group-item {
+            border: 3px solid #000;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .list-group-item.active {
+            background-color: #22a7f0;
+            border-color: #000;
+            color: #000;
+            box-shadow: 4px 4px 0 #000;
+        }
+        footer {
+            background-color: #000 !important;
+            color: #fff;
+            border-top: 4px solid #e62429;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        .price-tag {
+            background-color: #e62429;
+            color: #fff;
+            padding: 5px 10px;
+            border: 3px solid #000;
+            display: inline-block;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            transform: rotate(-3deg);
+            box-shadow: 3px 3px 0 #000;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-2" style="background-color: #e62429; border-bottom: 4px solid #000;">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'shop:home' %}">Il Collezionista</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fs-4">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'shop:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'shop:comic_list' %}">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'shop:about' %}">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Il Collezionista - BOOM! POW! Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

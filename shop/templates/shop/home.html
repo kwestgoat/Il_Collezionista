@@ -1,0 +1,57 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}Home - Il Collezionista{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="comic-panel p-5 text-center mb-5 bg-white" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#e62429\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+    <h1 class="display-1 mb-3" style="text-shadow: 3px 3px 0 #e62429, 6px 6px 0 #000; color: #fff;">IL COLLEZIONISTA</h1>
+    <p class="fs-3 fw-bold" style="font-family: 'Bangers'; letter-spacing: 2px;">Il tuo negozio di fumetti online! Trova i migliori titoli retrò e le ultime uscite.</p>
+    <a href="{% url 'shop:comic_list' %}" class="btn btn-comic mt-3 px-5 py-3 fs-3">Visita lo Store!</a>
+</div>
+
+<!-- Categorie -->
+<h2 class="display-4 text-center mb-4" style="transform: rotate(-2deg); text-shadow: 2px 2px 0 #fff, 4px 4px 0 #000;">Esplora per Categoria</h2>
+<div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+    {% for c in categories %}
+    <div class="col">
+        <a href="{{ c.get_absolute_url }}" class="text-decoration-none text-dark">
+            <div class="comic-panel p-4 text-center h-100 d-flex align-items-center justify-content-center" style="background-color: #f7ca18;">
+                <h3 class="mb-0 fs-1">{{ c.name }}</h3>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Nuovi Arrivi -->
+<h2 class="display-4 text-center mb-4 mt-5" style="transform: rotate(2deg); text-shadow: 2px 2px 0 #fff, 4px 4px 0 #000;">Nuovi Arrivi!</h2>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for comic in recent_comics %}
+    <div class="col">
+        <div class="card comic-card comic-panel">
+            <a href="{{ comic.get_absolute_url }}">
+                {% if comic.image %}
+                    <img src="{{ comic.image.url }}" class="card-img-top comic-cover" alt="{{ comic.title }}" style="height: 250px;">
+                {% else %}
+                    <div class="bg-light text-dark d-flex align-items-center justify-content-center comic-cover" style="height: 250px;">
+                        <span style="font-family: 'Bangers'; font-size: 1.5rem;">No Immagine</span>
+                    </div>
+                {% endif %}
+            </a>
+            <div class="card-body bg-white text-center">
+                <h5 class="card-title text-truncate" style="font-size: 1.2rem;">
+                    <a href="{{ comic.get_absolute_url }}" class="text-decoration-none text-dark">{{ comic.title }}</a>
+                </h5>
+                <p class="price-tag fs-5 mt-2 mb-0">€ {{ comic.price }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p class="fs-4">Nessun fumetto disponibile al momento.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
